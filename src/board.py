@@ -6,13 +6,15 @@ class Board:
     grid: list[list[Tile]]
     
     def __init__(self):
+        self.reset()
+    
+    def reset(self) -> None:
         # creating 4 x 4 matrix of Tile objects (all initially set to 0)
         self.grid = [[Tile(0) for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
 
         # setting two random tiles to start at 2/4
         self.generate_new_tile()
         self.generate_new_tile()
-    
     
     def generate_new_tile(self) -> None: 
         # new tiles have a 90% chance of being 2, 10% chance of being 4
@@ -68,3 +70,23 @@ class Board:
                     return False
                 
         return True
+
+    def move_down(self) -> None:
+        self.transpose()
+        self.reverse_rows()
+        self.slide_left()
+        self.reverse_rows()
+        self.transpose()
+    
+    def move_left(self) -> None:
+        self.slide_left()
+
+    def move_right(self) -> None:
+        self.reverse_rows()
+        self.slide_left()
+        self.reverse_rows()
+    
+    def move_up(self) -> None:
+        self.transpose()
+        self.slide_left()
+        self.transpose()
