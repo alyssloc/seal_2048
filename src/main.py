@@ -1,9 +1,3 @@
-# 2 = harbor-seal; 4 = harp-seal; 8 = northern-fur-seal; 16 = spotted-seal; 
-# 32 = ringed-seal; 64 = stellar-sea-lion; 128 = bearded-seal;
-# 256 = hooded-seal; 512 = hawaiian-monk-seal; 1024 = guadalupe-fur-seal
-# 2048 = gray-seal; 4096 = northern-elephant-seal; 8192 = mediterranean-monk-seal
-# 16384 = california-seal-lion; 32768 = ribbon-seal
-
 # Example file showing a basic pygame "game loop"
 import pygame
 
