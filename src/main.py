@@ -55,8 +55,9 @@ async def main():
         else:
             game.display.reset_display()
             
-        await asyncio.sleep(0)
+        
         clock.tick(FPS)  # limits FPS to 60
+        await asyncio.sleep(0)
 
     pg.quit()
     sys.exit()

@@ -1,8 +1,8 @@
 import pygame
 
 # dimensions and colors
-WIDTH: int = 1280
-HEIGHT: int  = 720
+WIDTH: int = 720
+HEIGHT: int  = 1280
 GRID_SIZE: int = 4
 CELL_SIZE: int = 120
 FPS: int = 60
