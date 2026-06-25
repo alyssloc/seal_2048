@@ -13,6 +13,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 YELLOW = (255, 218, 3)
+CUSTOM_FONT = "fonts/clear-sans.bold.ttf"
 
 # mapping 2048 numbers to corresponding seal images (most -> least common species)
 TILE_IMAGES = {
@@ -75,7 +76,15 @@ SEAL_BACKGROUND_COLORS = {
 
 #font
 pygame.font.init()
-FONT = pygame.font.SysFont('Arial', 40, bold=True)
-GAME_OVER_FONT = pygame.font.SysFont("Arial", 64, bold=True)
-SCORE_FONT = pygame.font.SysFont('Arial', 25)
-KEY_FONT = pygame.font.SysFont('Arial', 16, bold=True)
+try:
+    # using Clear Sans
+    FONT           = pygame.font.Font(CUSTOM_FONT, 40)
+    GAME_OVER_FONT = pygame.font.Font(CUSTOM_FONT, 64)
+    SCORE_FONT     = pygame.font.Font(CUSTOM_FONT, 25)
+    KEY_FONT       = pygame.font.Font(CUSTOM_FONT, 16)
+except FileNotFoundError:
+    # fallback if font does not load
+    FONT           = pygame.font.SysFont('Arial', 40, bold=True)
+    GAME_OVER_FONT = pygame.font.SysFont('Arial', 64, bold=True)
+    SCORE_FONT     = pygame.font.SysFont('Arial', 25)
+    KEY_FONT       = pygame.font.SysFont('Arial', 16, bold=True)

@@ -55,7 +55,7 @@ class Display:
         pg.draw.rect(self.screen, DARK_BLUE, (overlay_x, overlay_y, overlay_w, overlay_h), border_radius=12)
         pg.draw.rect(self.screen, WHITE, (overlay_x, overlay_y, overlay_w, overlay_h), width=4, border_radius=12)
 
-        title_text = FONT.render("Seal Evolution Key", True, WHITE)
+        title_text = FONT.render("Key", True, WHITE)
         self.screen.blit(title_text, (overlay_x + 40, overlay_y + 25))
 
         # close button when key is open
