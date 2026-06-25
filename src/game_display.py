@@ -48,7 +48,7 @@ class Display:
         if not self.show_key:
             return
         
-        overlay_w, overlay_h = 1040, 560
+        overlay_w, overlay_h = 640, 1000
         overlay_x = (self.width - overlay_w) // 2
         overlay_y = (self.height - overlay_h) // 2
 
@@ -69,13 +69,13 @@ class Display:
         seal_values = sorted([k for k in TILE_IMAGES.keys() if k != 0])
         start_x = overlay_x + 40
         start_y = overlay_y + 95
-        row_height = 85
-        thumb_size = 60
-        column_width = 330
+        row_height = 110
+        thumb_size = 80
+        column_width = 280
 
         for i, val in enumerate(seal_values):
-            col = i // 5
-            row = i % 5
+            col = i % 2
+            row = i // 2
 
             x_pos = start_x + (col * column_width)
             y_pos = start_y + (row * row_height)

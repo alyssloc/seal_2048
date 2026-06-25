@@ -4,7 +4,7 @@ import pygame
 WIDTH: int = 720
 HEIGHT: int  = 1280
 GRID_SIZE: int = 4
-CELL_SIZE: int = 120
+CELL_SIZE: int = 160
 FPS: int = 60
 BACKGROUND_COLOR = (70, 30, 180)
 CELL_BG_COLOR = (240, 240, 240)
@@ -88,4 +88,4 @@ except Exception as e:
     FONT           = pygame.font.Font(None, 40)
     GAME_OVER_FONT = pygame.font.Font(None, 64)
     SCORE_FONT     = pygame.font.Font(None, 25)
-    KEY_FONT       = pygame.font.Font(None, 16)
+    KEY_FONT       = pygame.font.Font(None, 14)
