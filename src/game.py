@@ -1,38 +1,34 @@
 from board import Board
 from game_display import Display
-from game_controls import Controls
 from constants import GRID_SIZE
 
 class Game:
     board: Board
     score: int
     display: Display
-    controls: Controls
 
     def __init__(self):
         self.score = 0; 
+        self.display = Display()
+        self.board = Board()
 
     def game_over(self) -> bool:
-        # check if there are any empty tiles
+        # check if there are any empty tiles & return true if game is over
         if self.board.check_for_game_over():
             self.display.display_game_over()
-
-            next_action: str = self.controls.game_over_controls()
-            if next_action == "RESTART":
-                self.restart()
-            elif next_action == "QUIT":
-                return False
-        return True
-
+            return True
+        #false if game keeps going
+        return False
 
     
     def create_display(self) -> None:
+        #self.display.screen.fill((70, 30, 180))
         for r in range(0, GRID_SIZE):
             for c in range(0, GRID_SIZE):
                 self.display.draw_square(self.board.grid[r][c].val, r, c)
         self.display.update_score(self.score)
         self.display.display_restart_button()
-
+        self.display.display_key_button()
         self.display.reset_display()
 
     
@@ -41,9 +37,8 @@ class Game:
         self.score = 0
         self.create_display()
     
-    def map_cotrols(self) -> None:
-        input: str = self.controls.get_key_input()
-        
+    def map_cotrols(self, input: str) -> None:
+        old_grid = [[self.board.grid[r][c].val for c in range(GRID_SIZE)] for r in range(GRID_SIZE)]
         if input == "LEFT":
             self.board.move_left()
         elif input == "RIGHT":
@@ -52,3 +47,8 @@ class Game:
             self.board.move_up()
         elif input == "DOWN":
             self.board.move_down()
+        
+        # generating new tiles only if a valid move happened
+        new_grid = [[self.board.grid[r][c].val for c in range(GRID_SIZE)] for r in range(GRID_SIZE)]
+        if old_grid != new_grid:
+            self.board.generate_new_tile()

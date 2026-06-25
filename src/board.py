@@ -29,17 +29,18 @@ class Board:
 
     def compress_row(self, r: int) -> None:
         # format rows to be empty tiles followed by non-empty tiles
-        for c in range(GRID_SIZE, 0, -1):
-            if self.grid[r][c].is_empty() and not self.grid[r][c - 1].is_empty():
-                self.grid[r][c], self.grid[r][c - 1] = self.grid[r][c - 1], self.grid[r][c]
+        for _ in range(GRID_SIZE - 1):
+            for c in range(0, GRID_SIZE - 1):
+                if self.grid[r][c].is_empty() and not self.grid[r][c + 1].is_empty():
+                    self.grid[r][c], self.grid[r][c + 1] = self.grid[r][c + 1], self.grid[r][c]
 
     def merge_row(self, r: int) -> None:
         # if there are two equal tiles next to each other, the right tile will merge, 
         # and the left will become zero
-        for c in range(GRID_SIZE - 1, 0, -1):
-            if self.grid[r][c].val == self.grid[r][c - 1].val:
+        for c in range(0, GRID_SIZE - 1):
+            if self.grid[r][c].val == self.grid[r][c + 1].val:
                 self.grid[r][c].merge()
-                self.grid[r][c - 1].set_val(0)
+                self.grid[r][c + 1].set_val(0)
 
         # after done merging, compress row
         self.compress_row(r)
@@ -64,9 +65,9 @@ class Board:
                 if self.grid[r][c].is_empty():
                     return False
                 # if possible horizontal/vertical move: game not over
-                if c < GRID_SIZE - 1 and self.grid[r][c] == self.grid[r][c + 1]:
+                if c < GRID_SIZE - 1 and self.grid[r][c].val == self.grid[r][c + 1].val:
                     return False
-                if r < GRID_SIZE - 1 and self.grid[r][c] == self.grid[r + 1][c]:
+                if r < GRID_SIZE - 1 and self.grid[r][c].val == self.grid[r + 1][c].val:
                     return False
                 
         return True
