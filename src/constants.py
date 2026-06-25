@@ -84,7 +84,7 @@ try:
     KEY_FONT       = pygame.font.Font(CUSTOM_FONT, 16)
 except FileNotFoundError:
     # fallback if font does not load
-    FONT           = pygame.font.SysFont('Arial', 40, bold=True)
-    GAME_OVER_FONT = pygame.font.SysFont('Arial', 64, bold=True)
-    SCORE_FONT     = pygame.font.SysFont('Arial', 25)
-    KEY_FONT       = pygame.font.SysFont('Arial', 16, bold=True)
+    FONT           = pygame.font.Font(None, 40)
+    GAME_OVER_FONT = pygame.font.Font(None, 64)
+    SCORE_FONT     = pygame.font.Font(None, 25)
+    KEY_FONT       = pygame.font.Font(None, 16)
