@@ -48,7 +48,7 @@ class Display:
         if not self.show_key:
             return
         
-        overlay_w, overlay_h = 640, 1000
+        overlay_w, overlay_h = 700, 1000
         overlay_x = (self.width - overlay_w) // 2
         overlay_y = (self.height - overlay_h) // 2
 
@@ -71,7 +71,7 @@ class Display:
         start_y = overlay_y + 95
         row_height = 110
         thumb_size = 80
-        column_width = 280
+        column_width = 300
 
         for i, val in enumerate(seal_values):
             col = i % 2
@@ -132,3 +132,10 @@ class Display:
         if self.show_key and self.close_button_rect.collidepoint(mouse_pos):
             self.show_key = False
             self.screen.fill(BACKGROUND_COLOR) 
+
+    def draw_title(self) -> None:
+        title_text = FONT.render("Seal and Sea Lion 2048", True, WHITE)
+        
+        title_rect = title_text.get_rect(center=(self.width // 2, self.board_y - 120))
+            
+        self.screen.blit(title_text, title_rect)

@@ -32,6 +32,7 @@ class Game:
         for r in range(0, GRID_SIZE):
             for c in range(0, GRID_SIZE):
                 self.display.draw_square(self.board.grid[r][c].val, r, c)
+        self.display.draw_title()
         self.display.update_score(self.score)
         self.display.display_restart_button()
         self.display.display_key_button()

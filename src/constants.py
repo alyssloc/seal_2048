@@ -88,4 +88,4 @@ except Exception as e:
     FONT           = pygame.font.Font(None, 40)
     GAME_OVER_FONT = pygame.font.Font(None, 64)
     SCORE_FONT     = pygame.font.Font(None, 25)
-    KEY_FONT       = pygame.font.Font(None, 14)
+    KEY_FONT       = pygame.font.Font(None, 16)
