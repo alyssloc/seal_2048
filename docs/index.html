@@ -40,6 +40,7 @@ async def custom_site():
     import zipfile
     async with platform.fopen("src.apk", "rb") as archive:
         with zipfile.ZipFile(archive) as zip_ref:
+            print("ZIP CONTENTS:", zip_ref.namelist())
             zip_ref.extractall(appdir.as_posix())
 
     # preloader will change to work dir and prepend it to sys.path
