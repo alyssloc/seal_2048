@@ -40,18 +40,23 @@ async def custom_site():
     import zipfile
     async with platform.fopen("src.apk", "rb") as archive:
         with zipfile.ZipFile(archive) as zip_ref:
-            print("ZIP CONTENTS:", zip_ref.namelist())
-            zip_ref.extractall(appdir.as_posix())
+            for member in zip_ref.namelist():
+                if member.endswith("/"):
+                    continue
+                name = member[7:] if member.startswith("assets/") else member
+                
+                # Save directly into the root of /data/data/src/
+                target = appdir / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(zip_ref.read(member))
 
-    # preloader will change to work dir and prepend it to sys.path
-    platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
+  
+    platform.run_main(PyConfig, loaderhome= appdir, loadermain=None)
 
-
-    # wait preloading complete : that includes images and wasm compilation of bundled modules
     while embed.counter()<0:
         await asyncio.sleep(.1)
 
-    main = (appdir / "assets" / "main.py").as_posix()
+    main = (appdir / "main.py").as_posix()
 
     # TODO: test for window.webkitAudioContext and block aio loop until gesture if accessing media manager play
     # before a gesture is recorded ( touch or click )
