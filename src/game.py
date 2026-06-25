@@ -13,9 +13,15 @@ class Game:
         self.board = Board()
 
     def game_over(self) -> bool:
+        # check if player won the game
+        for r in range(GRID_SIZE):
+            for c in range(GRID_SIZE):
+                if self.board.grid[r][c].val == 32768:
+                    self.display.display_game_over_or_win(True) 
+                    return True
         # check if there are any empty tiles & return true if game is over
         if self.board.check_for_game_over():
-            self.display.display_game_over()
+            self.display.display_game_over_or_win(False)
             return True
         #false if game keeps going
         return False
@@ -40,13 +46,13 @@ class Game:
     def map_cotrols(self, input: str) -> None:
         old_grid = [[self.board.grid[r][c].val for c in range(GRID_SIZE)] for r in range(GRID_SIZE)]
         if input == "LEFT":
-            self.board.move_left()
+            self.score += self.board.move_left()
         elif input == "RIGHT":
-            self.board.move_right()
+            self.score += self.board.move_right()
         elif input == "UP":
-            self.board.move_up()
+            self.score += self.board.move_up()
         elif input == "DOWN":
-            self.board.move_down()
+            self.score += self.board.move_down()
         
         # generating new tiles only if a valid move happened
         new_grid = [[self.board.grid[r][c].val for c in range(GRID_SIZE)] for r in range(GRID_SIZE)]

@@ -1,5 +1,6 @@
 import pygame as pg
-from constants import CELL_SIZE, GRID_SIZE, WIDTH, HEIGHT, BACKGROUND_COLOR, SEAL_BACKGROUND_COLORS, SEAL_NAMES, CELL_BG_COLOR, DARK_BLUE, WHITE, TILE_IMAGES, FONT, SCORE_FONT, GAME_OVER_FONT, KEY_FONT
+from constants import (CELL_SIZE, GRID_SIZE, WIDTH, HEIGHT, GREEN, RED, BACKGROUND_COLOR, SEAL_BACKGROUND_COLORS, SEAL_NAMES, 
+                        DARK_BLUE, WHITE, TILE_IMAGES, FONT, SCORE_FONT, GAME_OVER_FONT, KEY_FONT, YELLOW)
 
 class Display:
     def __init__(self):
@@ -36,9 +37,6 @@ class Display:
         if val != 0:
             image = TILE_IMAGES[val]
             self.screen.blit(image, (x, y))
-        
-        
-
     
     def update_score(self, score_in: int) -> None:
         pg.draw.rect(self.screen, BACKGROUND_COLOR, (self.board_x, self.board_y - 50, 200, 40))
@@ -100,13 +98,18 @@ class Display:
             self.draw_key()
         pg.display.flip()
     
-    def display_game_over(self) -> None:
-        go_text = GAME_OVER_FONT.render("GAME OVER", True, DARK_BLUE)
+    def display_game_over_or_win(self, winner: bool) -> None:
+        if winner:
+            go_text = GAME_OVER_FONT.render("You Win!!!", True, GREEN)
+        else:
+            go_text = GAME_OVER_FONT.render("GAME OVER", True, RED)
+
         go_rect = go_text.get_rect(center=(self.width//2, self.height//2 - 50))
         self.screen.blit(go_text, go_rect)
-        sub_text = SCORE_FONT.render("Press 'R' to Restart or 'ESC' to Quit", True, WHITE)
+        sub_text = SCORE_FONT.render("Press 'R' to Restart or 'ESC' to Quit", True, YELLOW)
         sub_rect = sub_text.get_rect(center=(self.width//2, self.height//2 + 50))
         self.screen.blit(sub_text, sub_rect)
+    
     
     def display_restart_button(self) -> None:
         pg.draw.rect(self.screen, DARK_BLUE, self.restart_button_rect, border_radius=5)

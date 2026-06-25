@@ -34,21 +34,26 @@ class Board:
                 if self.grid[r][c].is_empty() and not self.grid[r][c + 1].is_empty():
                     self.grid[r][c], self.grid[r][c + 1] = self.grid[r][c + 1], self.grid[r][c]
 
-    def merge_row(self, r: int) -> None:
+    def merge_row(self, r: int) -> int:
         # if there are two equal tiles next to each other, the right tile will merge, 
         # and the left will become zero
+        points: int = 0; 
         for c in range(0, GRID_SIZE - 1):
             if self.grid[r][c].val == self.grid[r][c + 1].val:
                 self.grid[r][c].merge()
+                points += self.grid[r][c].val
                 self.grid[r][c + 1].set_val(0)
 
         # after done merging, compress row
         self.compress_row(r)
+        return points
 
-    def slide_left(self) -> None:
+    def slide_left(self) -> int:
+        points: int = 0
         for r in range(GRID_SIZE):
             self.compress_row(r)
-            self.merge_row(r)
+            points += self.merge_row(r)
+        return points
 
     
     # reverse and transpose functions to be able to use slide_left function for all directions
@@ -72,22 +77,25 @@ class Board:
                 
         return True
 
-    def move_down(self) -> None:
+    def move_down(self) -> int:
         self.transpose()
         self.reverse_rows()
-        self.slide_left()
+        points: int = self.slide_left()
         self.reverse_rows()
         self.transpose()
+        return points
     
-    def move_left(self) -> None:
-        self.slide_left()
+    def move_left(self) -> int:
+        return self.slide_left()
 
-    def move_right(self) -> None:
+    def move_right(self) -> int:
         self.reverse_rows()
-        self.slide_left()
+        points: int = self.slide_left()
         self.reverse_rows()
+        return points
     
-    def move_up(self) -> None:
+    def move_up(self) -> int:
         self.transpose()
-        self.slide_left()
+        points: int = self.slide_left()
         self.transpose()
+        return points
